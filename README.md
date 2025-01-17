@@ -134,7 +134,7 @@ terraform destroy
 
 ## Repository
 
-GitHub Repository: [Terraform EKS Project](https://github.com/your-repo/terraform-eks-project)
+GitHub Repository: [Terraform EKS Project](https://github.com/ArashMHD91/Terraform-AWS-EKS-cluster.git)
 
 ---
 
