@@ -123,34 +123,6 @@ terraform destroy
 ```
 
 ---
----
-
-## Deployment Steps
-1. Initialize Terraform:
-   ```bash
-   terraform init
-   ```
-
-2. Validate the configuration:
-   ```bash
-   terraform validate
-   ```
-
-3. Plan the infrastructure:
-   ```bash
-   terraform plan
-   ```
-   Review the execution plan to confirm the resources to be created.
-
-4. Apply the configuration:
-   ```bash
-   terraform apply
-   ```
-   Type `yes` when prompted to confirm.
-
-5. Navigate to the [Amazon EKS console](https://console.aws.amazon.com/eks/home) to review the cluster's status and configuration.
-
----
 
 ## Outputs
 After successful deployment, Terraform provides the following outputs:
