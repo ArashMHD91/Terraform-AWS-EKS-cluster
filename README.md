@@ -1,7 +1,12 @@
 # TerraEKS - Infrastructure as Code for AWS EKS Cluster
 
 ## Overview
-This project demonstrates how to use Terraform to provision an Amazon Elastic Kubernetes Service (EKS) cluster with best practices for scalability and high availability. It is designed for deploying containerized applications using Kubernetes and emphasizes infrastructure as code (IaC) principles.
+This project, **TerraEKS**, provides Infrastructure as Code (IaC) using Terraform to deploy a production-ready Amazon Elastic Kubernetes Service (EKS) cluster. The infrastructure includes:
+
+- A properly configured Virtual Private Cloud (VPC) and subnets across multiple availability zones (AZs).
+- Security groups for secure networking.
+- Auto-scaling node groups.
+- IAM roles and policies following the principle of least privilege.
 
 ---
 
@@ -36,44 +41,76 @@ This project demonstrates how to use Terraform to provision an Amazon Elastic Ku
 
 Before deploying this project, ensure the following:
 
-1. Terraform installed on your local machine.
-2. AWS CLI configured with sufficient IAM permissions.
-3. Kubectl installed for managing the Kubernetes cluster.
+1. AWS CLI installed and configured with appropriate IAM permissions.
+2. Terraform installed (version >= 1.0.0).
+3. AWS account with permissions to manage EKS, IAM, and VPC resources.
+4. Chocolatey package manager (optional, for updating Terraform).
 
 ---
 
-## How to Deploy
-
-1. **Clone the Repository:**
+## Installation
+1. Clone this repository:
    ```bash
-   git clone https://github.com/your-repo/terraform-eks-project.git
-   cd terraform-eks-project
+   git clone https://github.com/ArashMHD91/Terraform-AWS-EKS-cluster.git
+   cd Terraform-AWS-EKS-cluster
    ```
 
-2. **Initialize Terraform:**
+2. Ensure your Terraform version is up to date:
+   ```bash
+   terraform version
+   ```
+   If outdated, update using Chocolatey (PowerShell):
+   ```powershell
+   choco install terraform --pre
+   ```
+
+3. Export your AWS credentials:
+   ```bash
+   export AWS_ACCESS_KEY_ID="<your-access-key-id>"
+   export AWS_SECRET_ACCESS_KEY="<your-secret-access-key>"
+   ```
+
+4. Verify your IAM role permissions to ensure you can apply the configurations.
+
+---
+
+## Deployment Steps
+1. Initialize Terraform:
    ```bash
    terraform init
    ```
 
-3. **Plan the Infrastructure:**
+2. Validate the configuration:
+   ```bash
+   terraform validate
+   ```
+
+3. Plan the infrastructure:
    ```bash
    terraform plan
    ```
+   Review the execution plan to confirm the resources to be created.
 
-4. **Apply the Configuration:**
+4. Apply the configuration:
    ```bash
    terraform apply
    ```
-   Confirm with `yes` when prompted.
+   Type `yes` when prompted to confirm.
 
-5. **Configure Kubectl:**
-   After the EKS cluster is provisioned, configure kubectl:
-   ```bash
-   aws eks update-kubeconfig --region <your-region> --name <eks-cluster-name>
-   ```
+5. Navigate to the [Amazon EKS console](https://console.aws.amazon.com/eks/home) to review the cluster's status and configuration.
 
-6. **Deploy Applications:**
-   Use Kubernetes manifests or Helm charts to deploy your applications.
+---
+
+## Outputs
+After successful deployment, Terraform provides the following outputs:
+
+- **EKS Cluster Name**: Name of the created EKS cluster.
+- **Cluster Endpoint**: Endpoint URL for the EKS cluster.
+- **Cluster ARN**: Amazon Resource Name of the EKS cluster.
+- **Cluster Security Group ID**: Security group ID associated with the cluster.
+- **Node Group ARN**: ARN of the EKS node group.
+- **VPC ID**: ID of the created VPC.
+
 
 ---
 
@@ -86,6 +123,51 @@ terraform destroy
 ```
 
 ---
+---
+
+## Deployment Steps
+1. Initialize Terraform:
+   ```bash
+   terraform init
+   ```
+
+2. Validate the configuration:
+   ```bash
+   terraform validate
+   ```
+
+3. Plan the infrastructure:
+   ```bash
+   terraform plan
+   ```
+   Review the execution plan to confirm the resources to be created.
+
+4. Apply the configuration:
+   ```bash
+   terraform apply
+   ```
+   Type `yes` when prompted to confirm.
+
+5. Navigate to the [Amazon EKS console](https://console.aws.amazon.com/eks/home) to review the cluster's status and configuration.
+
+---
+
+## Outputs
+After successful deployment, Terraform provides the following outputs:
+
+- **EKS Cluster Name**: Name of the created EKS cluster.
+- **Cluster Endpoint**: Endpoint URL for the EKS cluster.
+- **Cluster ARN**: Amazon Resource Name of the EKS cluster.
+- **Cluster Security Group ID**: Security group ID associated with the cluster.
+- **Node Group ARN**: ARN of the EKS node group.
+- **VPC ID**: ID of the created VPC.
+
+## Security Best Practices
+- Use least privilege IAM roles and policies.
+- Limit public access to resources unless necessary.
+- Use encrypted secrets and credentials for authentication.
+
+---
 
 ## Repository
 
@@ -95,4 +177,4 @@ GitHub Repository: [Terraform EKS Project](https://github.com/your-repo/terrafor
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License, which allows you to use, modify, and distribute the code for personal or commercial purposes as long as proper attribution is given. For more details, see the LICENSE file.
