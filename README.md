@@ -15,13 +15,21 @@ This project, **TerraEKS**, provides Infrastructure as Code (IaC) using Terrafor
 - Fully customizable using variables.
 
 ## Architecture Diagram
-![EKS Architecture Diagram](Architecture_Diagram.png)
 
-The architecture consists of:
-- A VPC with public subnets across multiple AZs.
-- An EKS cluster with an associated security group.
-- Node groups auto-scaling within the public subnets.
-- Proper IAM roles and policies for the EKS cluster and node groups.
+```
+AWS Cloud
+├── VPC (10.0.0.0/16)
+│ ├── Public Subnet 1 (10.0.1.0/24)
+│ │ └── Node Group 1 (EKS Worker Nodes)
+│ ├── Public Subnet 2 (10.0.2.0/24)
+│ │ └── Node Group 2 (EKS Worker Nodes)
+│ └── Internet Gateway (172.16.0.0/16)
+│
+├── Amazon EKS Control Plane
+│ └── Manages and orchestrates the Kubernetes cluster
+│
+└── Application
+└── Accessible via Internet Gateway
 
 ---
 
