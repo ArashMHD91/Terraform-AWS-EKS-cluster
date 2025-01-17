@@ -124,15 +124,6 @@ terraform destroy
 
 ---
 
-## Outputs
-After successful deployment, Terraform provides the following outputs:
-
-- **EKS Cluster Name**: Name of the created EKS cluster.
-- **Cluster Endpoint**: Endpoint URL for the EKS cluster.
-- **Cluster ARN**: Amazon Resource Name of the EKS cluster.
-- **Cluster Security Group ID**: Security group ID associated with the cluster.
-- **Node Group ARN**: ARN of the EKS node group.
-- **VPC ID**: ID of the created VPC.
 
 ## Security Best Practices
 - Use least privilege IAM roles and policies.
