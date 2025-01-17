@@ -1,163 +1,149 @@
-Here's your complete README.md file:
-
-
-
-```markdown
-# TerraEKS: Infrastructure as Code for AWS EKS Cluster
-
-[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Terraform](https://img.shields.io/badge/Terraform-1.0+-blueviolet)](https://www.terraform.io/)
-[![AWS Provider](https://img.shields.io/badge/AWS-5.0+-orange)](https://registry.terraform.io/providers/hashicorp/aws/latest)
+# Terraform AWS EKS Cluster Project
 
 ## Overview
-This project provides Infrastructure as Code (IaC) using Terraform to deploy a production-ready Amazon Elastic Kubernetes Service (EKS) cluster. The infrastructure includes a fully configured Virtual Private Cloud (VPC), multi-AZ subnets, security groups, and auto-scaling node groups, all following AWS best practices.
+This project, **TerraEKS**, provides Infrastructure as Code (IaC) using Terraform to deploy a production-ready Amazon Elastic Kubernetes Service (EKS) cluster. The infrastructure includes:
 
-## Architecture
-![EKS Architecture Diagram](Architecture_Diagram.png)
-
-### Key Components:
-- VPC with public subnets across multiple Availability Zones
-- Internet Gateway for external connectivity
-- EKS control plane with managed node groups
-- Security groups for cluster and node communication
-- IAM roles and policies following least privilege principle
-- Auto-scaling configuration for worker nodes
+- A properly configured Virtual Private Cloud (VPC) and subnets across multiple availability zones (AZs).
+- Security groups for secure networking.
+- Auto-scaling node groups.
+- IAM roles and policies following the principle of least privilege.
 
 ## Features
-- 🚀 Production-ready EKS cluster deployment
-- 🔐 Secure networking with properly configured VPC and security groups
-- ⚡ Auto-scaling node groups for optimal resource utilization
-- 🔄 High availability across multiple AZs
-- 🛡️ IAM roles and policies following security best practices
-- 🎯 Fully customizable through variables
-- 📊 Comprehensive output variables for easy integration
+- Highly available EKS cluster across multiple AZs.
+- Secure networking with public subnets for worker nodes.
+- IAM configurations with least privilege.
+- Fully customizable using variables.
 
-## Prerequisites
-- AWS Account with appropriate permissions
-- AWS CLI installed and configured
-- Terraform (>= 1.0.0)
-- kubectl (for cluster interaction)
-- Basic understanding of AWS EKS and Terraform
+## Architecture Diagram
+![EKS Architecture Diagram](Architecture_Diagram.png)
 
-## Quick Start
-
-1. Clone the repository:
-```bash
-git clone https://github.com/ArashMHD91/Terraform-AWS-EKS-cluster.git
-cd Terraform-AWS-EKS-cluster
-```
-
-2. Configure AWS credentials:
-```bash
-export AWS_ACCESS_KEY_ID="your-access-key"
-export AWS_SECRET_ACCESS_KEY="your-secret-key"
-export AWS_REGION="your-region"
-```
-
-3. Initialize and apply Terraform:
-```bash
-terraform init
-terraform plan
-terraform apply
-```
-
-## Configuration
-
-### Required Variables
-Create a `terraform.tfvars` file:
-```hcl
-aws_region          = "eu-central-1"
-cluster_name        = "my-eks-cluster"
-environment         = "production"
-kubernetes_version  = "1.27"
-vpc_cidr_block      = "10.0.0.0/16"
-subnet_cidr_blocks  = ["10.0.1.0/24", "10.0.2.0/24"]
-```
-
-### Optional Variables
-```hcl
-desired_nodes       = 2
-min_nodes           = 1
-max_nodes           = 4
-node_instance_types = ["t3.medium"]
-```
-
-## Resource Management
-
-### Accessing the Cluster
-After deployment, configure kubectl:
-```bash
-aws eks update-kubeconfig --region <region> --name <cluster-name>
-```
-
-### Scaling
-Adjust node group scaling in `terraform.tfvars`:
-```hcl
-desired_nodes = 3
-max_nodes     = 5
-```
-
-### Clean Up
-Remove all resources:
-```bash
-terraform destroy
-```
-
-## Security Considerations
-- All worker nodes use IMDSv2
-- Control plane logs enabled
-- Security groups limit access to necessary ports only
-- IAM roles follow least privilege principle
-- Network policies configured for pod-to-pod communication
-
-## Monitoring and Logging
-The cluster comes configured with:
-- CloudWatch Logs for control plane
-- Container Insights enabled
-- Metrics server for HPA support
-
-## Troubleshooting
-
-### Common Issues and Solutions
-
-1. **Terraform Plan Fails**:
-   - Verify AWS credentials
-   - Check IAM permissions
-   - Validate region availability
-
-2. **Cluster Creation Issues**:
-   - Ensure subnet configurations are correct
-   - Verify VPC limits
-   - Check AWS service quotas
-
-## Future Enhancements
-- [ ] Add Helm charts for common applications
-- [ ] Implement AWS Load Balancer Controller
-- [ ] Add cluster autoscaler
-- [ ] Implement AWS EBS CSI driver
-- [ ] Add monitoring stack (Prometheus/Grafana)
-
-## Contributing
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a Pull Request
-
-## Support
-For bugs and feature requests, please open an issue in the GitHub repository.
-
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-- AWS EKS Documentation
-- Terraform AWS Provider Documentation
-- The DevOps Community
+The architecture consists of:
+- A VPC with public subnets across multiple AZs.
+- An EKS cluster with an associated security group.
+- Node groups auto-scaling within the public subnets.
+- Proper IAM roles and policies for the EKS cluster and node groups.
 
 ---
 
-Made with ❤️ by Arash
+## Prerequisites
+Ensure you have the following before starting:
+
+1. AWS CLI installed and configured with appropriate IAM permissions.
+2. Terraform installed (version >= 1.0.0).
+3. AWS account with permissions to manage EKS, IAM, and VPC resources.
+4. Chocolatey package manager (optional, for updating Terraform).
+
+---
+
+## Installation
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/ArashMHD91/Terraform-AWS-EKS-cluster.git
+   cd Terraform-AWS-EKS-cluster
+   ```
+
+2. Ensure your Terraform version is up to date:
+   ```bash
+   terraform version
+   ```
+   If outdated, update using Chocolatey (PowerShell):
+   ```powershell
+   choco install terraform --pre
+   ```
+
+3. Export your AWS credentials:
+   ```bash
+   export AWS_ACCESS_KEY_ID="<your-access-key-id>"
+   export AWS_SECRET_ACCESS_KEY="<your-secret-access-key>"
+   ```
+
+4. Verify your IAM role permissions to ensure you can apply the configurations.
+
+---
+
+## Configuration
+Modify the `terraform.tfvars` file to customize your setup:
+```hcl
+aws_region          = "us-west-2"
+cluster_name        = "my-eks-cluster"
+environment         = "development"
+kubernetes_version  = "1.27"
+desired_nodes       = 2
+min_nodes           = 1
+max_nodes           = 4
+vpc_cidr_block      = "10.0.0.0/16"
+subnet_cidr_blocks  = ["10.0.1.0/24", "10.0.2.0/24"]
+node_instance_types = ["t3.medium"]
 ```
 
-Feel free to customize any section or add more details according to your specific needs. Would you like me to modify any particular part or add additional information?
+---
+
+## Deployment Steps
+1. Initialize Terraform:
+   ```bash
+   terraform init
+   ```
+
+2. Validate the configuration:
+   ```bash
+   terraform validate
+   ```
+
+3. Plan the infrastructure:
+   ```bash
+   terraform plan
+   ```
+   Review the execution plan to confirm the resources to be created.
+
+4. Apply the configuration:
+   ```bash
+   terraform apply
+   ```
+   Type `yes` when prompted to confirm.
+
+5. Navigate to the [Amazon EKS console](https://console.aws.amazon.com/eks/home) to review the cluster's status and configuration.
+
+---
+
+## Outputs
+After successful deployment, Terraform provides the following outputs:
+
+- **EKS Cluster Name**: Name of the created EKS cluster.
+- **Cluster Endpoint**: Endpoint URL for the EKS cluster.
+- **Cluster ARN**: Amazon Resource Name of the EKS cluster.
+- **Cluster Security Group ID**: Security group ID associated with the cluster.
+- **Node Group ARN**: ARN of the EKS node group.
+- **VPC ID**: ID of the created VPC.
+
+---
+
+## Clean Up
+To avoid unnecessary charges, destroy the resources when they are no longer needed:
+```bash
+terraform destroy
+```
+Type `yes` to confirm.
+
+---
+
+## Troubleshooting
+- If Terraform commands fail, check your IAM permissions and ensure the AWS credentials are correctly exported.
+- Ensure your Terraform and AWS CLI versions are up to date.
+- Refer to the Terraform documentation for [EKS](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster).
+
+---
+
+## Security Best Practices
+- Use least privilege IAM roles and policies.
+- Limit public access to resources unless necessary.
+- Use encrypted secrets and credentials for authentication.
+
+---
+
+## License
+This project is licensed under the MIT License, which allows you to use, modify, and distribute the code for personal or commercial purposes as long as proper attribution is given. For more details, see the LICENSE file.
+
+---
+
+Happy Terraforming! 🎉
+
